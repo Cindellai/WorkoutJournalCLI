@@ -20,15 +20,19 @@ def main
       duration = gets.chomp
       puts "Enter the intensity (Low, Medium, High):"
       intensity = gets.chomp
-      journal.log_workout(date, type, duration, intensity)
+      tracker.log_workout(date, type, duration.to_i, intensity) 
       puts "Workout logged successfully!"
     when 2
-      journal.list_workouts
+      tracker.list_workouts
     when 3
       puts "Enter the number of the workout you want to delete:"
       index = gets.chomp.to_i
-      journal.delete_workout(index)
-      puts "Workout deleted."
+      begin
+        tracker.delete_workout(index)
+        puts "Workout deleted."
+      rescue IndexError
+        puts "Invalid workout number."
+      end
     when 4
       puts "Exiting Workout Journal. Keep moving!"
       break
